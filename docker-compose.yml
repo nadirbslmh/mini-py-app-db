@@ -5,7 +5,7 @@ services:
     build: .
     environment:
       - DB_HOST=${DB_HOST}
-      - DB_PORT="${DB_PORT}
+      - DB_PORT=${DB_PORT}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
@@ -23,13 +23,13 @@ services:
     ports:
       - 3306
     volumes:
-      - /home/nadir/cobavolume:/var/lib/mysql
+      - /home/nadir/minipyvolume:/var/lib/mysql
       - ./mariadb/init.sql:/data/application/init.sql
     command: --init-file /data/application/init.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 2s
+      interval: 1m30s
+      timeout: 5s
       retries: 10
     networks:
       - my-network
